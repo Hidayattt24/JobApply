@@ -1,0 +1,49 @@
+# Environment
+.env
+.venv/
+venv/
+
+# OAuth credentials & tokens (never commit)
+credentials.json
+client_secret*.json
+token.json
+gmail_token.json
+
+# Data (runtime artifacts)
+data/auth/
+data/db/
+data/jobapply.db
+data/jobapply.db-journal
+*.token
+*.pkl
+
+# Attachments (may contain personal documents)
+data/attachments/*.pdf
+!data/attachments/.gitkeep
+
+# Profile data (personal data)
+data/profile/
+
+# Logs
+logs/
+*.log
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+#docs 
+docs/
+
+#cv
+HidayatNurHakim_CV.pdf/
