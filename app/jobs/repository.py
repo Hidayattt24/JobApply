@@ -72,6 +72,28 @@ def get_application(session: Session, application_id: int) -> Application | None
     return session.get(Application, application_id)
 
 
+def get_application_for_job(session: Session, job_id: int) -> Application | None:
+    stmt = select(Application).where(Application.job_id == job_id)
+    return session.scalars(stmt).first()
+
+
+def delete_job(session: Session, job_id: int) -> bool:
+    job = session.get(Job, job_id)
+    if job is None:
+        return False
+    session.delete(job)
+    session.flush()
+    return True
+
+
+def delete_all_jobs(session: Session) -> int:
+    jobs = list_jobs(session)
+    for job in jobs:
+        session.delete(job)
+    session.flush()
+    return len(jobs)
+
+
 def set_analysis(session: Session, job: Job, analysis: dict) -> None:
     job.analysis_json = json.dumps(analysis, ensure_ascii=False)
 

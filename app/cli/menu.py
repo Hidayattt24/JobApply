@@ -28,7 +28,8 @@ def _menu_text() -> str:
         "[bold]12[/bold] Review & approve\n"
         "[bold]13[/bold] Schedule / send\n"
         "[bold]14[/bold] History\n"
-        "[bold]15[/bold] Full workflow (apply)\n"
+        "[bold]15[/bold] Delete jobs\n"
+        "[bold]16[/bold] Full workflow (apply)\n"
         "[bold]0[/bold]  Exit"
     )
 
@@ -38,7 +39,7 @@ def _dispatch(choice: str) -> None:
     from app.cli.auth import auth_gmail, auth_logout, auth_status
     from app.cli.generate import generate_emails
     from app.cli.history import list_history
-    from app.cli.jobs import add_jobs, import_jobs, list_jobs
+    from app.cli.jobs import add_jobs, delete_jobs, import_jobs, list_jobs
     from app.cli.main import _run_workflow
     from app.cli.profile import edit_profile, import_cv, show_profile
     from app.cli.review import review_emails
@@ -74,6 +75,8 @@ def _dispatch(choice: str) -> None:
     elif choice == "14":
         list_history()
     elif choice == "15":
+        delete_jobs()
+    elif choice == "16":
         _run_workflow()
     else:
         console.print("[yellow]Unknown option.[/yellow]")

@@ -43,15 +43,21 @@ app.add_typer(auth_app, name="auth")
 
 
 @app.command("analyze")
-def analyze() -> None:
-    """Analyze all job descriptions via AI."""
-    analyze_jobs()
+def analyze(
+    jobs: str = typer.Option(None, "--jobs", help="Comma-separated job IDs to analyze."),
+    all_flag: bool = typer.Option(False, "--all", help="Analyze all jobs."),
+) -> None:
+    """Analyze selected job descriptions via AI."""
+    analyze_jobs(job_ids=jobs, all_flag=all_flag)
 
 
 @app.command("generate")
-def generate() -> None:
-    """Generate personalized emails for all jobs via AI."""
-    generate_emails()
+def generate(
+    jobs: str = typer.Option(None, "--jobs", help="Comma-separated job IDs to generate."),
+    all_flag: bool = typer.Option(False, "--all", help="Generate all jobs."),
+) -> None:
+    """Generate personalized emails for selected jobs via AI."""
+    generate_emails(job_ids=jobs, all_flag=all_flag)
 
 
 @app.command("init")

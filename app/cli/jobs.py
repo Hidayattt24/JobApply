@@ -5,7 +5,7 @@ from __future__ import annotations
 import typer
 from rich.table import Table
 
-from app.cli._common import console, open_session
+from app.cli._common import console, open_session, select_jobs
 from app.jobs.csv_import import CSVImportError, parse_jobs_csv
 from app.jobs import repository as jobs_repo
 
@@ -95,5 +95,46 @@ def list_jobs() -> None:
                 job.recruiter_name or "",
             )
         console.print(table)
+    finally:
+        session.close()
+
+
+@jobs_app.command("delete")
+def delete_jobs(
+    all_flag: bool = typer.Option(False, "--all", help="Delete all jobs."),
+) -> None:
+    """Delete jobs (cascades to applications, schedules, and email logs)."""
+    session = open_session()
+    try:
+        jobs = jobs_repo.list_jobs(session)
+        if not jobs:
+            console.print("[yellow]No jobs to delete.[/yellow]")
+            return
+
+        selected = select_jobs(session, jobs, "Delete", None, all_flag)
+        if not selected:
+            return
+
+        table = Table(title="Jobs to delete")
+        table.add_column("ID", justify="right")
+        table.add_column("Company")
+        table.add_column("Position")
+        for job in selected:
+            table.add_row(str(job.id), job.company, job.position)
+        console.print(table)
+
+        if not typer.confirm(
+            f"Delete {len(selected)} job(s)? This also removes their "
+            "applications, schedules, and email logs.",
+            default=False,
+        ):
+            console.print("[dim]Cancelled.[/dim]")
+            return
+
+        for job in selected:
+            jobs_repo.delete_job(session, job.id)
+
+        session.commit()
+        console.print(f"[green]{len(selected)} job(s) deleted.[/green]")
     finally:
         session.close()

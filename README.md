@@ -1,4 +1,4 @@
-# JobApply AI CLI
+# JobApply CLI
 
 Automate personalized job application emails: AI (Gemini) analyzes job descriptions,
 matches them against your CV, and drafts emails; you review/approve, then it sends
@@ -7,7 +7,7 @@ via **Gmail API + OAuth 2.0**.
 ## Requirements
 
 - Python 3.10+
-- A Gemini API key
+- Gemini API key or etc
 - Gmail OAuth 2.0 credentials (Desktop App) — only if you want to actually send email
 
 ## Quick Start
