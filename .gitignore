@@ -21,6 +21,10 @@ data/jobapply.db-journal
 data/attachments/*.pdf
 !data/attachments/.gitkeep
 
+# CV (personal documents)
+data/cv/
+*.pdf
+
 # Profile data (personal data)
 data/profile/
 
@@ -44,6 +48,3 @@ Thumbs.db
 
 #docs 
 docs/
-
-#cv
-HidayatNurHakim_CV.pdf/
