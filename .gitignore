@@ -10,23 +10,30 @@ token.json
 gmail_token.json
 
 # Data (runtime artifacts)
-data/auth/
-data/db/
 data/jobapply.db
 data/jobapply.db-journal
 *.token
 *.pkl
 
-# Attachments (may contain personal documents)
-data/attachments/*.pdf
+# Attachments (personal documents)
+data/attachments/*
 !data/attachments/.gitkeep
 
 # CV (personal documents)
-data/cv/
-*.pdf
+data/cv/*
+!data/cv/.gitkeep
 
 # Profile data (personal data)
-data/profile/
+data/profile/*
+!data/profile/.gitkeep
+
+# Auth tokens (never commit)
+data/auth/*
+!data/auth/.gitkeep
+
+# Database folder (unused placeholder)
+data/db/*
+!data/db/.gitkeep
 
 # Logs
 logs/

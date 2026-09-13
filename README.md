@@ -29,6 +29,7 @@ lain cukup dengan mengimplementasikan satu kelas `AIService` baru.
 - [Konfigurasi `.env`](#konfigurasi-env)
 - [Setup API Key AI](#1-mendapatkan-api-key-ai)
 - [Setup Gmail OAuth (untuk mengirim email)](#2-setup-gmail-oauth-untuk-mengirim-email)
+- [Struktur Folder `data/`](#struktur-folder-data)
 - [Penggunaan](#penggunaan)
 - [CSV Bulk Import](#csv-bulk-import)
 - [Menjalankan Scheduler](#menjalankan-scheduler)
@@ -269,6 +270,27 @@ jobapply auth gmail
 ```bash
 jobapply auth status
 ```
+
+---
+
+## Struktur Folder `data/`
+
+Semua data lokal (CV, profil, token, database) disimpan di folder `data/`. Strukturnya:
+
+```text
+data/
+├── attachments/   # File yang dilampirkan ke email (CV, portfolio PDF/DOCX)
+├── auth/          # Token OAuth Gmail (dibuat otomatis oleh `jobapply auth gmail`)
+├── cv/            # CV Anda (PDF/DOCX/TXT)
+├── db/            # Placeholder (tidak dipakai)
+├── profile/       # Profil kandidat hasil parsing CV (profile.json, facts.json)
+└── jobapply.db    # Database SQLite (jobs, applications, history)
+```
+
+- Semua folder di atas dibuat **otomatis** oleh `jobapply init`, dan tetap terlihat di
+  repository lewat file `.gitkeep` (agar user baru tahu nama-nama foldernya).
+- Isi folder di-ignore oleh Git; file pribadi Anda tidak ikut ter-upload.
+- Lihat `data/README.md` untuk penjelasan lengkap tiap folder.
 
 ---
 
